@@ -1,4 +1,10 @@
-public class Edificio implements ImpactoEcologico {
+import java.util.ArrayList;
+
+interface ImpactoEcologico {
+    int obtenerImpactoEcologico();
+}
+
+class Edificio implements ImpactoEcologico {
     private int consumoEnergia;
 
     public Edificio(int consumoEnergia) {
@@ -7,36 +13,71 @@ public class Edificio implements ImpactoEcologico {
 
     @Override
     public int obtenerImpactoEcologico() {
-        // Lógica para calcular el impacto ecológico del edificio
         return consumoEnergia * 5; // Ejemplo simple, ajusta según tus necesidades
     }
 
     public void mostrarInformacion() {
         System.out.println("Edificio - Consumo de energía: " + consumoEnergia);
- public class Edificio implements ImpactoEcologico {
-    private int consumoEnergia;
+    }
+}
 
-    public Edificio(int consumoEnergia) {
-        this.consumoEnergia = consumoEnergia;
+class Auto implements ImpactoEcologico {
+    private int emisionesCO2;
+
+    public Auto(int emisionesCO2) {
+        this.emisionesCO2 = emisionesCO2;
     }
 
     @Override
     public int obtenerImpactoEcologico() {
-        // Lógica para calcular el impacto ecológico del edificio
-        return consumoEnergia * 5; // Ejemplo simple, ajusta según tus necesidades
+        return emisionesCO2 * 10; // Ejemplo simple, ajusta según tus necesidades
     }
 
-public Bicicleta(boolean esElectrica) {
+    public void mostrarInformacion() {
+        System.out.println("Auto - Emisiones de CO2: " + emisionesCO2);
+    }
+}
+
+class Bicicleta implements ImpactoEcologico {
+    private boolean esElectrica;
+
+    public Bicicleta(boolean esElectrica) {
         this.esElectrica = esElectrica;
     }
 
     @Override
     public int obtenerImpactoEcologico() {
-        // Lógica para calcular el impacto ecológico de la bicicleta
         return esElectrica ? 1 : 0; // Ejemplo simple, ajusta según tus necesidades
     }
 
     public void mostrarInformacion() {
         System.out.println("Bicicleta - Es eléctrica: " + esElectrica);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Edificio edificio = new Edificio(100);
+        Auto auto = new Auto(50);
+        Bicicleta bicicleta = new Bicicleta(true);
+
+        ArrayList<ImpactoEcologico> impactoEcologicoArrayList = new ArrayList<>();
+        impactoEcologicoArrayList.add(edificio);
+        impactoEcologicoArrayList.add(auto);
+        impactoEcologicoArrayList.add(bicicleta);
+
+        for (ImpactoEcologico objeto : impactoEcologicoArrayList) {
+            int impacto = objeto.obtenerImpactoEcologico();
+            System.out.println("Impacto ecológico: " + impacto);
+
+            if (objeto instanceof Edificio) {
+                ((Edificio) objeto).mostrarInformacion();
+            } else if (objeto instanceof Auto) {
+                ((Auto) objeto).mostrarInformacion();
+            } else if (objeto instanceof Bicicleta) {
+                ((Bicicleta) objeto).mostrarInformacion();
+            }
+            System.out.println();
+        }
     }
 }
